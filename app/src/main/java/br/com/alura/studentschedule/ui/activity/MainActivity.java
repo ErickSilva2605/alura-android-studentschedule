@@ -4,9 +4,6 @@ import static br.com.alura.studentschedule.ui.activity.ConstantsActivities.KEY_S
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -14,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 import br.com.alura.studentschedule.R;
 import br.com.alura.studentschedule.dao.StudentDAO;
@@ -35,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle(APPBAR_TITLE);
 
         configureFabAddStudent();
+        ConfigureStudentList();
     }
 
     private void configureFabAddStudent() {
@@ -49,22 +45,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ConfigureStudentList();
+        updateStudentList();
+    }
+
+    private void updateStudentList() {
+        adapter.clear();
+        adapter.addAll(dao.getAll());
     }
 
     private void ConfigureStudentList() {
         ListView studentsListView = findViewById(R.id.activity_main_student_list);
-        final List<Student> studentList = dao.getAll();
-        configureAdapter(studentsListView, studentList);
+        configureAdapter(studentsListView);
         configureItemClickListener(studentsListView);
         configureItemLongClickListener(studentsListView);
     }
 
-    private void configureAdapter(ListView studentsListView, List<Student> studentList) {
+    private void configureAdapter(ListView studentsListView) {
         adapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_list_item_1,
-                studentList);
+                android.R.layout.simple_list_item_1);
         studentsListView.setAdapter(adapter);
     }
 
@@ -78,10 +77,14 @@ public class MainActivity extends AppCompatActivity {
     private void configureItemLongClickListener(ListView studentsListView) {
         studentsListView.setOnItemLongClickListener((adapterView, view, position, id) -> {
             Student selectedStudent = (Student) adapterView.getItemAtPosition(position);
-            dao.remove(selectedStudent);
-            adapter.remove(selectedStudent);
+            removeStudent(selectedStudent);
             return true;
         });
+    }
+
+    private void removeStudent(Student student) {
+        dao.remove(student);
+        adapter.remove(student);
     }
 
     private void openStudentFormActivityToEdit(Student student) {
