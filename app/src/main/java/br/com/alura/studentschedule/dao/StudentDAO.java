@@ -34,6 +34,12 @@ public class StudentDAO {
         }
     }
 
+    public void remove(Student student) {
+        Student selectedStudent = findStudentById(student);
+        if (selectedStudent != null)
+            students.remove(student);
+    }
+
     @Nullable
     private Student findStudentById(Student student) {
         for (Student s :

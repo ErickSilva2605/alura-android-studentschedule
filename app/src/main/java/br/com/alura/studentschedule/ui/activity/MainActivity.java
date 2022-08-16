@@ -4,6 +4,9 @@ import static br.com.alura.studentschedule.ui.activity.ConstantsActivities.KEY_S
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String APPBAR_TITLE = "List of Students";
     private final StudentDAO dao = new StudentDAO();
+    private ArrayAdapter<Student> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,19 +57,30 @@ public class MainActivity extends AppCompatActivity {
         final List<Student> studentList = dao.getAll();
         configureAdapter(studentsListView, studentList);
         configureItemClickListener(studentsListView);
+        configureItemLongClickListener(studentsListView);
     }
 
     private void configureAdapter(ListView studentsListView, List<Student> studentList) {
-        studentsListView.setAdapter(new ArrayAdapter<>(
+        adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
-                studentList));
+                studentList);
+        studentsListView.setAdapter(adapter);
     }
 
     private void configureItemClickListener(ListView studentsListView) {
         studentsListView.setOnItemClickListener((adapterView, view, position, id) -> {
             Student selectedStudent = (Student) adapterView.getItemAtPosition(position);
             openStudentFormActivityToEdit(selectedStudent);
+        });
+    }
+
+    private void configureItemLongClickListener(ListView studentsListView) {
+        studentsListView.setOnItemLongClickListener((adapterView, view, position, id) -> {
+            Student selectedStudent = (Student) adapterView.getItemAtPosition(position);
+            dao.remove(selectedStudent);
+            adapter.remove(selectedStudent);
+            return true;
         });
     }
 
