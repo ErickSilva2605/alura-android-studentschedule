@@ -4,9 +4,14 @@ import static br.com.alura.studentschedule.ui.activity.ConstantsActivities.KEY_S
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +38,21 @@ public class MainActivity extends AppCompatActivity {
         ConfigureStudentList();
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add("Remover");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Student selectedStudent = (Student) adapter.getItem(menuInfo.position);
+        removeStudent(selectedStudent);
+        return super.onContextItemSelected(item);
+    }
+
     private void configureFabAddStudent() {
         FloatingActionButton fabAddStudent = findViewById(R.id.activity_main_add_students);
         fabAddStudent.setOnClickListener(view -> openStudentFormActivityToCreate());
@@ -57,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         ListView studentsListView = findViewById(R.id.activity_main_student_list);
         configureAdapter(studentsListView);
         configureItemClickListener(studentsListView);
-        configureItemLongClickListener(studentsListView);
+        registerForContextMenu(studentsListView);
     }
 
     private void configureAdapter(ListView studentsListView) {
@@ -71,14 +91,6 @@ public class MainActivity extends AppCompatActivity {
         studentsListView.setOnItemClickListener((adapterView, view, position, id) -> {
             Student selectedStudent = (Student) adapterView.getItemAtPosition(position);
             openStudentFormActivityToEdit(selectedStudent);
-        });
-    }
-
-    private void configureItemLongClickListener(ListView studentsListView) {
-        studentsListView.setOnItemLongClickListener((adapterView, view, position, id) -> {
-            Student selectedStudent = (Student) adapterView.getItemAtPosition(position);
-            removeStudent(selectedStudent);
-            return true;
         });
     }
 
