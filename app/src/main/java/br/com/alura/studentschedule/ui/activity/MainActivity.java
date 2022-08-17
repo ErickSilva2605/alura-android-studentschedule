@@ -8,7 +8,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,12 +19,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import br.com.alura.studentschedule.R;
 import br.com.alura.studentschedule.dao.StudentDAO;
 import br.com.alura.studentschedule.model.Student;
+import br.com.alura.studentschedule.ui.adapter.ListStudentAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String APPBAR_TITLE = "List of Students";
     private final StudentDAO dao = new StudentDAO();
-    private ArrayAdapter<Student> adapter;
+    private ListStudentAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,9 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configureAdapter(ListView studentsListView) {
-        adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1);
+        adapter = new ListStudentAdapter(this);
         studentsListView.setAdapter(adapter);
     }
 
