@@ -4,9 +4,12 @@ import static br.com.alura.studentschedule.ui.activity.ConstantsActivities.KEY_S
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.alura.studentschedule.R;
@@ -29,7 +32,23 @@ public class StudentFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_form);
         initFields();
         configureIntent();
-        configureButtonSave();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_student_form_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.activity_student_form_menu_save)
+        {
+            getStudent();
+            finishForm();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void configureIntent() {
@@ -57,14 +76,6 @@ public class StudentFormActivity extends AppCompatActivity {
             edtPhone.setText(selectedStudent.getPhone());
             edtEmail.setText(selectedStudent.getEmail());
         }
-    }
-
-    private void configureButtonSave() {
-        Button btnSave = findViewById(R.id.activity_student_form_btn_save);
-        btnSave.setOnClickListener(view -> {
-            getStudent();
-            finishForm();
-        });
     }
 
     private void getStudent() {

@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Cursos/Alura/Android/Fundamentos/Projetos/StudentSchedule/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Cursos/Alura/Android/Fundamentos/Projetos/StudentSchedule/app/src/main/res/layout/activity_student_form.xml" value="0.21164021164021163" />
+        <entry key="..\:/Cursos/Alura/Android/Fundamentos/Projetos/StudentSchedule/app/src/main/res/menu/activity_form_student_menu.xml" value="0.25" />
         <entry key="..\:/Cursos/Alura/Android/Fundamentos/Projetos/StudentSchedule/app/src/main/res/menu/activity_main_menu.xml" value="0.25" />
+        <entry key="..\:/Cursos/Alura/Android/Fundamentos/Projetos/StudentSchedule/app/src/main/res/menu/activity_student_form_menu.xml" value="0.19273504273504274" />
       </map>
     </option>
   </component>

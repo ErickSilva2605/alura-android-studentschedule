@@ -30,12 +30,5 @@
             android:focusable="true"
             android:hint="E-mail"
             android:inputType="textEmailAddress" />
-        <Button
-            android:id="@+id/activity_student_form_btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="10dp"
-            android:focusable="true"
-            android:text="Save" />
     </LinearLayout>
 </ScrollView>
