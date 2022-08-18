@@ -2,6 +2,7 @@ package br.com.alura.studentschedule.ui.activity;
 
 import static br.com.alura.studentschedule.ui.activity.ConstantsActivities.KEY_SELECTED_STUDENT;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -24,6 +25,10 @@ import br.com.alura.studentschedule.ui.adapter.ListStudentAdapter;
 public class MainActivity extends AppCompatActivity {
 
     private static final String APPBAR_TITLE = "List of Students";
+    private static final String ALERT_TITLE_REMOVING_STUDENT = "Removing Student";
+    private static final String ALERT_MESSAGE_REMOVING_STUDENT = "Are you sure you want to remove the student?";
+    private static final String ALERT_POSITIVE_BUTTON_REMOVING_STUDENT = "Yes";
+    private static final String ALERT_NEGATIVE_BUTTON_REMOVING_STUDENT = "No";
     private final StudentDAO dao = new StudentDAO();
     private ListStudentAdapter adapter;
 
@@ -47,13 +52,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.activity_main_menu_remove) {
-            AdapterView.AdapterContextMenuInfo menuInfo =
-                    (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Student selectedStudent = adapter.getItem(menuInfo.position);
-            removeStudent(selectedStudent);
-        }
+        if (itemId == R.id.activity_main_menu_remove)
+            confirmRemoval(item);
         return super.onContextItemSelected(item);
+    }
+
+    private void confirmRemoval(@NonNull final MenuItem item) {
+        new AlertDialog
+                .Builder(this)
+                .setTitle(ALERT_TITLE_REMOVING_STUDENT)
+                .setMessage(ALERT_MESSAGE_REMOVING_STUDENT)
+                .setPositiveButton(ALERT_POSITIVE_BUTTON_REMOVING_STUDENT, (dialogInterface, i) -> removeStudent(item))
+                .setNegativeButton(ALERT_NEGATIVE_BUTTON_REMOVING_STUDENT, null)
+                .show();
+    }
+
+    private void removeStudent(@NonNull final MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Student selectedStudent = adapter.getItem(menuInfo.position);
+        removeStudent(selectedStudent);
     }
 
     private void configureFabAddStudent() {
