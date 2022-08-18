@@ -38,28 +38,33 @@ public class ListStudentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        View viewInflated = LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_list_student, viewGroup, false);
-
+        View viewInflated = inflateView(viewGroup);
         Student selectedStudent = students.get(position);
-        TextView studentName = viewInflated.findViewById(R.id.item_list_student_name);
-        TextView studentPhone = viewInflated.findViewById(R.id.item_list_student_phone);
-        studentName.setText(selectedStudent.getName());
-        studentPhone.setText(selectedStudent.getPhone());
-
+        link(viewInflated, selectedStudent);
         return viewInflated;
     }
 
-    public void clear() {
-        students.clear();
+    private void link(View view, Student student) {
+        TextView studentName = view.findViewById(R.id.item_list_student_name);
+        TextView studentPhone = view.findViewById(R.id.item_list_student_phone);
+        studentName.setText(student.getName());
+        studentPhone.setText(student.getPhone());
     }
 
-    public void addAll(List<Student> students) {
+    private View inflateView(ViewGroup viewGroup) {
+        return LayoutInflater
+                .from(context)
+                .inflate(R.layout.item_list_student, viewGroup, false);
+    }
+
+    public void update(List<Student> students){
+        this.students.clear();
         this.students.addAll(students);
+        notifyDataSetChanged();
     }
 
     public void remove(Student student) {
         students.remove(student);
+        notifyDataSetChanged();
     }
 }

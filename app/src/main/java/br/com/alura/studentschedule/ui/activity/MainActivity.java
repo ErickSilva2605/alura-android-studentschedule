@@ -72,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateStudentList() {
-        adapter.clear();
-        adapter.addAll(dao.getAll());
+        adapter.update(dao.getAll());
     }
 
     private void ConfigureStudentList() {
