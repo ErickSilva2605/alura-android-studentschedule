@@ -13,6 +13,12 @@ public class Student implements Serializable {
     public Student() {
     }
 
+    public Student(String name, String phone, String email) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+    }
+
     @NonNull
     @Override
     public String toString() {

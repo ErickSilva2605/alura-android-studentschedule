@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentSchedule"
-        tools:targetApi="29">
+        tools:targetApi="29"
+        android:name=".StudentScheduleApplication">
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
