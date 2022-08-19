@@ -11,11 +11,13 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_marginTop="8dp"
-        tools:text="Erick Augusto"/>
+        tools:text="Erick Augusto"
+        tools:ignore="SelectableText" />
     <TextView
         android:id="@+id/item_list_student_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
-        tools:text="11963168464"/>
+        tools:text="11963168464"
+        tools:ignore="SelectableText" />
 </LinearLayout>

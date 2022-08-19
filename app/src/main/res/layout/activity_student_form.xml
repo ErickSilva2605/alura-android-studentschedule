@@ -12,23 +12,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:hint="Name"
-            android:inputType="textCapWords" />
+            android:hint="@string/name"
+            android:inputType="textCapWords"
+            android:importantForAutofill="no" />
         <EditText
             android:id="@+id/activity_student_form_edt_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:focusable="true"
-            android:hint="Phone"
-            android:inputType="phone" />
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:importantForAutofill="no" />
         <EditText
             android:id="@+id/activity_student_form_edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:focusable="true"
-            android:hint="E-mail"
-            android:inputType="textEmailAddress" />
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:importantForAutofill="no" />
     </LinearLayout>
 </ScrollView>
